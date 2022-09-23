@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>go-即时通信群聊</title>
+</head>
+<body>
+<div>
+    <div>
+        <h1>js1</h1>
+        <div>
+
+        </div>
+    </div>
+    <div>
+        <h1>js2</h1>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    let nowtime = Date.now() //唯一标识id
+    console.log("当前用户："+nowtime)
+    var ws = new WebSocket('ws://127.0.0.1:88')
+    // 方法一 ：只可以指定一个回调函数
+    ws.onopen = function(){
+        console.log("链接成功！")
+    }
+    ws.inmessage = function(event){
+        let data = event.data
+        //服务器传给客户端的数据
+        console.log('收到消息：',data);
+    }
+    ws.onerror = function(){
+        //错误处理
+        console.log('链接错误！');
+    }
+    function sands(dd){
+        let msg = nowtime+":"+dd;
+        ws.send(msg)
+        console.log("发送：",nowtime+":"+dd)
+    }
+</script>
